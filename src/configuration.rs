@@ -15,6 +15,18 @@ pub struct DatabaseSettings {
     pub database_name: String,
 }
 
+impl DatabaseSettings {
+    pub fn connection_string(&self) -> String {
+        let username = &self.username;
+        let password = &self.password;
+        let port = self.port;
+        let host = &self.host;
+        let database_name = &self.database_name;
+
+        format!("postgres://{username}:{password}@{host}:{port}/{database_name}")
+    }
+}
+
 pub fn get_configuration() -> Result<Settings, config::ConfigError> {
     let s = Config::builder()
         .add_source(File::with_name("configuration"))
