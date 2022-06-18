@@ -25,6 +25,15 @@ impl DatabaseSettings {
 
         format!("postgres://{username}:{password}@{host}:{port}/{database_name}")
     }
+
+    pub fn connection_string_without_db(&self) -> String {
+        let username = &self.username;
+        let password = &self.password;
+        let port = self.port;
+        let host = &self.host;
+
+        format!("postgres://{username}:{password}@{host}:{port}")
+    }
 }
 
 pub fn get_configuration() -> Result<Settings, config::ConfigError> {
