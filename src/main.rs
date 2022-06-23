@@ -11,7 +11,7 @@ async fn main() -> std::io::Result<()> {
     telemetry::init_subscriber(subscriber);
 
     let configuration = get_configuration().expect("Failed to read configuration");
-    let connection = PgPool::connect(&configuration.database.connection_string().expose_secret())
+    let connection = PgPool::connect(configuration.database.connection_string().expose_secret())
         .await
         .expect("Failed to connect to Postgres");
     let address = format!("127.0.0.1:{}", configuration.port);
